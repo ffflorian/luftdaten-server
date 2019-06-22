@@ -2,7 +2,6 @@
   "author": "Florian Keller <github@floriankeller.de>",
   "dependencies": {
     "body-parser": "1.19.0",
-    "celebrate": "10.0.1",
     "compression": "1.7.4",
     "cross-env": "5.2.0",
     "dotenv": "8.0.0",
@@ -63,10 +62,7 @@
   "main": "dist/index.js",
   "name": "luftdaten-server",
   "prettier": "@ffflorian/prettier-config",
-  "release": {
-    "extends": "@ffflorian/semantic-release-config"
-  },
-  "repository": "<repository>",
+  "repository": "https://github.com/ffflorian/lufdaten-server.git",
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
