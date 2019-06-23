@@ -6,7 +6,7 @@ import {KnexResult, KnexUpdate, TABLE} from '../knex/KnexService';
 
 const router = express.Router();
 
-export const dataRoute = (knexInstance: Knex<KnexUpdate, KnexResult>) => {
+export const mainRoute = (knexInstance: Knex<KnexUpdate, KnexResult>) => {
   return router.get('/', async (req, res) => {
     const entries: KnexResult[] = await knexInstance
       .from(TABLE.LUFTDATEN)

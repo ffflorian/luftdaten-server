@@ -37,7 +37,7 @@ export class Server {
       })
     );
     this.app.use(dataRoute(knexInstance));
-    this.app.use(mainRoute(this.config));
+    this.app.use(mainRoute(knexInstance));
     this.app.use(internalErrorRoute());
   }
 
