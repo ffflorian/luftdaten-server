@@ -1,6 +1,7 @@
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as express from 'express';
+import * as expressHandlebars from 'express-handlebars';
 import * as helmet from 'helmet';
 import * as http from 'http';
 
@@ -21,6 +22,9 @@ export class Server {
   async init(): Promise<void> {
     const knexInstance = await this.knexService.init();
 
+    this.app.engine('handlebars', expressHandlebars());
+    this.app.set('view engine', 'handlebars');
+
     this.app.use((req, res, next) => {
       bodyParser.json({limit: '200mb'})(req, res, error => {
         if (error) {
@@ -37,7 +41,7 @@ export class Server {
       })
     );
     this.app.use(dataRoute(knexInstance));
-    this.app.use(mainRoute(this.config));
+    this.app.use(mainRoute(knexInstance));
     this.app.use(internalErrorRoute());
   }
 

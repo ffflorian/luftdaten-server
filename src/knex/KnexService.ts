@@ -30,7 +30,7 @@ export interface KnexServiceOptions {
 }
 
 export class KnexService {
-  private readonly knex: Knex<KnexUpdate, KnexResult>;
+  private readonly knex: Knex<KnexResult, KnexUpdate>;
 
   constructor(options: KnexServiceOptions = {}) {
     knexConfig.debug = options.development === false;
@@ -38,7 +38,7 @@ export class KnexService {
     this.knex = Knex(knexConfig);
   }
 
-  public async init(): Promise<Knex<KnexUpdate, KnexResult>> {
+  public async init(): Promise<Knex<KnexResult, KnexUpdate>> {
     try {
       await this.knex.migrate.latest();
       return this.knex;
