@@ -4,14 +4,14 @@
  */
 export interface SensorValue {
   value: string;
-  /** type of sensor, e.g. "humidity" */
+  /** The type of sensor, e.g. "humidity" */
   value_type: string;
 }
 
-export interface AirData {
-  /** the sensor ID */
+export interface DevicePayload {
+  /** The sensor ID */
   esp8266id: string;
   sensordatavalues: SensorValue[];
-  /** e.g. `NRZ-2018-123B */
-  software_version: 'NRZ-2018-123B';
+  /** Software version, e.g. `NRZ-2018-123B` */
+  software_version: string;
 }

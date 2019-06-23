@@ -1,0 +1,49 @@
+import * as Knex from 'knex';
+
+import {knexConfig} from './knexfile';
+
+export enum TABLE {
+  LUFTDATEN = 'luftdaten',
+}
+
+export interface KnexUpdate {
+  esp8266id: string;
+  humidity?: number | null;
+  max_micro?: number | null;
+  min_micro?: number | null;
+  samples?: number | null;
+  SDS_P1?: number | null;
+  SDS_P2?: number | null;
+  signal?: number | null;
+  software_version: string;
+  temperature?: number | null;
+}
+
+export interface KnexResult extends Required<KnexUpdate> {
+  created_at: Date;
+  software_version: string;
+  updated_at: Date;
+}
+
+export interface KnexServiceOptions {
+  development?: boolean;
+}
+
+export class KnexService {
+  private readonly knex: Knex<KnexUpdate, KnexResult>;
+
+  constructor(options: KnexServiceOptions = {}) {
+    knexConfig.debug = options.development === false;
+
+    this.knex = Knex(knexConfig);
+  }
+
+  public async init(): Promise<Knex<KnexUpdate, KnexResult>> {
+    try {
+      await this.knex.migrate.latest();
+      return this.knex;
+    } catch (error) {
+      throw new Error(`Error while migrating: ${error.message}`);
+    }
+  }
+}

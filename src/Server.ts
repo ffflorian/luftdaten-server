@@ -5,18 +5,22 @@ import * as helmet from 'helmet';
 import * as http from 'http';
 
 import {ServerConfig} from './config';
+import {KnexService} from './knex/KnexService';
 import {dataRoute, internalErrorRoute, mainRoute} from './routes';
 
 export class Server {
   private readonly app: express.Express;
+  private readonly knexService: KnexService;
   private server?: http.Server;
 
   constructor(private readonly config: ServerConfig) {
     this.app = express();
-    this.init();
+    this.knexService = new KnexService({development: config.DEVELOPMENT});
   }
 
-  init(): void {
+  async init(): Promise<void> {
+    const knexInstance = await this.knexService.init();
+
     this.app.use((req, res, next) => {
       bodyParser.json({limit: '200mb'})(req, res, error => {
         if (error) {
@@ -32,41 +36,23 @@ export class Server {
         threshold: this.config.COMPRESS_MIN_SIZE,
       })
     );
-    this.app.use(dataRoute());
+    this.app.use(dataRoute(knexInstance));
     this.app.use(mainRoute(this.config));
     this.app.use(internalErrorRoute());
   }
 
-  // initCaching(): void {
-  //   if (this.config.DEVELOPMENT) {
-  //     this.app.use(helmet.noCache());
-  //   } else {
-  //     this.app.use((req, res, next) => {
-  //       const milliSeconds = 1000;
-  //       res.header('Cache-Control', `public, max-age=${this.config.CACHE_DURATION_SECONDS}`);
-  //       res.header('Expires', new Date(Date.now() + this.config.CACHE_DURATION_SECONDS * milliSeconds).toUTCString());
-  //       next();
-  //     });
-  //   }
-  // }
-
-  // initForceSSL(): void {
-  //   const STATUS_CODE_MOVED = 301;
-
-  //   const SSLMiddleware: express.RequestHandler = (req, res, next) => {
-  //     // Redirect to HTTPS
-  //     if (!req.secure || req.get('X-Forwarded-Proto') !== 'https') {
-  //       if (this.config.DEVELOPMENT || req.url.match(/_health\/?/)) {
-  //         return next();
-  //       }
-  //       return res.redirect(STATUS_CODE_MOVED, `https://${req.headers.host}${req.url}`);
-  //     }
-  //     next();
-  //   };
-
-  //   this.app.enable('trust proxy');
-  //   this.app.use(SSLMiddleware);
-  // }
+  initCaching(): void {
+    if (this.config.DEVELOPMENT) {
+      this.app.use(helmet.noCache());
+    } else {
+      this.app.use((req, res, next) => {
+        const milliSeconds = 1000;
+        res.header('Cache-Control', `public, max-age=${this.config.CACHE_DURATION_SECONDS}`);
+        res.header('Expires', new Date(Date.now() + this.config.CACHE_DURATION_SECONDS * milliSeconds).toUTCString());
+        next();
+      });
+    }
+  }
 
   initSecurityHeaders(): void {
     this.app.disable('x-powered-by');
@@ -80,15 +66,18 @@ export class Server {
   }
 
   start(): Promise<number> {
-    return new Promise((resolve, reject) => {
-      if (this.server) {
-        reject('Server is already running.');
-      } else if (this.config.PORT_HTTP) {
-        this.server = this.app.listen(this.config.PORT_HTTP, () => resolve(this.config.PORT_HTTP));
-      } else {
-        reject('Server port not specified.');
-      }
-    });
+    return this.init().then(
+      () =>
+        new Promise((resolve, reject) => {
+          if (this.server) {
+            reject('Server is already running.');
+          } else if (this.config.PORT_HTTP) {
+            this.server = this.app.listen(this.config.PORT_HTTP, () => resolve(this.config.PORT_HTTP));
+          } else {
+            reject('Server port not specified.');
+          }
+        })
+    );
   }
 
   async stop(): Promise<void> {

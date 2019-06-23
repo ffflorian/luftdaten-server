@@ -1,6 +1,23 @@
 # luftdaten-server [![Build Status](https://action-badges.now.sh/ffflorian/luftdaten-server)](https://github.com/ffflorian/luftdaten-server/actions/) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ffflorian/luftdaten-server)](https://dependabot.com)
 
-Receive and display data from your luftdaten device
+Receive and display data from your [luftdaten](https://luftdaten.info) device.
+
+## Usage
+
+```
+yarn
+yarn start
+```
+
+In your device config, set the values for own API:
+
+```
+Server: <your server IP>
+Pfad: /data
+Port: 21080
+```
+
+Your data will be saved to **`luftdaten.sqlite`**.
 
 ## Incoming example data
 
