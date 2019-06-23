@@ -1,0 +1,19 @@
+<h1>Luftdaten Server</h1>
+
+<h2>Current values</h2>
+<table>
+  <thead>
+    <tr>
+    {{#each headers}}
+      <td><strong>{{this}}</strong></td>
+    {{/each}}
+    </tr>
+  </thead>
+  {{#each entries}}
+    <tr>
+    {{#each values}}
+      <td>{{this}}</td>
+    {{/each}}
+    </tr>
+  {{/each}}
+</table>
