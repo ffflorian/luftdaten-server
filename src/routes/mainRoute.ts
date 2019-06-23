@@ -13,6 +13,6 @@ export const mainRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
       .limit(20);
     const entries: Array<{values: string[]}> = result.map(entry => ({values: Object.values(entry)}));
     const headers = Object.keys(result[0]);
-    res.render('home', {entries, headers});
+    return res.render('home', {entries, headers});
   });
 };

@@ -14,7 +14,27 @@ const logger = logdown('luftdaten-server/dataRoute', {
 const router = express.Router();
 
 export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
-  return router.post('/data/?', async (req, res) => {
+  router.get('/data/?', async (req, res) => {
+    const result = await knexInstance(TABLE.LUFTDATEN)
+      .select('*')
+      .limit(20);
+    return res.json(result);
+  });
+
+  router.get('/data/:id', async (req, res) => {
+    const requestId = req.params.id;
+    const result = await knexInstance(TABLE.LUFTDATEN)
+      .select('*')
+      .where({id: requestId});
+
+    if (result.length) {
+      return res.json(result[0]);
+    }
+
+    return res.sendStatus(404);
+  });
+
+  router.post('/data/?', async (req, res) => {
     const payload: DevicePayload = req.body;
 
     logger.info('Received payload', payload);
@@ -29,4 +49,6 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
 
     return res.sendStatus(200);
   });
+
+  return router;
 };
