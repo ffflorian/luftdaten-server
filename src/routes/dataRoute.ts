@@ -13,7 +13,7 @@ const logger = logdown('luftdaten-server/dataRoute', {
 
 const router = express.Router();
 
-export const dataRoute = (knexInstance: Knex<KnexUpdate, KnexResult>) => {
+export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
   return router.post('/data/?', async (req, res) => {
     const payload: DevicePayload = req.body;
 
