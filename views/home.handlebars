@@ -1,19 +1,68 @@
 <h1>Luftdaten Server</h1>
 
-<h2>Current values</h2>
+<h2>Chart</h2>
+<div id="chart_div" style="width: 900px; height: 500px"></div>
+
+<h2>Last 20 values</h2>
 <table>
   <thead>
     <tr>
-    {{#each headers}}
+      {{#each headers}}
       <td><strong>{{this}}</strong></td>
-    {{/each}}
+      {{/each}}
     </tr>
   </thead>
   {{#each entries}}
-    <tr>
+  <tr>
     {{#each values}}
-      <td>{{this}}</td>
+    <td>{{this}}</td>
     {{/each}}
-    </tr>
+  </tr>
   {{/each}}
 </table>
+
+<script type="text/javascript">
+  google.charts.load('current', {packages: ['line', 'corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  const element = document.getElementById('chart_div');
+
+  async function drawChart() {
+    const response = await fetch('/data');
+    const jsonData = await response.json();
+    const entries = jsonData.map(entry => {
+      const {created_at, temperature} = entry;
+      return [new Date(created_at), temperature];
+    });
+
+    const dataTable = new google.visualization.DataTable();
+
+    dataTable.addColumn('date', 'Date');
+    dataTable.addColumn('number', 'Temperature in °C');
+    dataTable.addRows(entries);
+
+    const options = {
+      axes: {
+        y: {
+          Temps: {label: 'Temperature in °C'},
+        }
+      },
+      chart: {
+        title: 'Temperature and humidity at home'
+      },
+      height: 500,
+      series: {
+        0: {axis: 'Temperature'},
+      },
+      width: 900,
+    };
+
+    const monthYearFormatter = new google.visualization.DateFormat({
+      pattern: 'MMM yyyy'
+    });
+    monthYearFormatter.format(dataTable, 0);
+
+    const chart = new google.charts.Line(element);
+    chart.draw(dataTable, options);
+  }
+</script>
