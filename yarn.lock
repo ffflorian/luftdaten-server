@@ -258,6 +258,19 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
+"@types/swagger-schema-official@2.0.17":
+  version "2.0.17"
+  resolved "https://registry.yarnpkg.com/@types/swagger-schema-official/-/swagger-schema-official-2.0.17.tgz#c9086ec36ce00ae21e5a73a507c8fc94938f17e1"
+  integrity sha512-+lvLQ9GHI49zzXMNABVbsyCYXFdflW5IMUM/hgqEEholSyUwdsovwTohx2kQIDrhJOUAZjskOHbeWPy/xbAdqA==
+
+"@types/swagger-ui-express@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/swagger-ui-express/-/swagger-ui-express-3.0.1.tgz#2ffc0abcea9588501435f8162ab3193497180292"
+  integrity sha512-AHIIs9tUDimRAKvmHHBXxNfavjcvZuGgu/iXaSVpBk+C6EO/H1PUBIq4l5opFXLbV+hBuVbYnpycbobhSoMjTA==
+  dependencies:
+    "@types/express" "*"
+    "@types/serve-static" "*"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -4147,6 +4160,18 @@ supports-color@^5.3.0:
   integrity sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
   dependencies:
     has-flag "^3.0.0"
+
+swagger-ui-dist@^3.18.1:
+  version "3.22.3"
+  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.22.3.tgz#f2042966f8e0eef0c5730cf90891a89dab7810e1"
+  integrity sha512-tmjAsqT43pqg5UoiQ2805c+juX0ASSoI/Ash/0c19jjAOFtTfE93ZrzmFd9hjqVgre935CYeXT0uaku42Lu8xg==
+
+swagger-ui-express@4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/swagger-ui-express/-/swagger-ui-express-4.0.6.tgz#c7a1cc3952a01017483b382d67e27196c82577c3"
+  integrity sha512-7YkBfVWRYjvnGITs7vygM8VNF91iUwX8ReHQaTD9I7q8Ky8SYXZ81gyFc+kovE34iSbCC1yW+n2oII3b3uSxXQ==
+  dependencies:
+    swagger-ui-dist "^3.18.1"
 
 symbol-observable@^1.1.0:
   version "1.2.0"

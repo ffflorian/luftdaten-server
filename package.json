@@ -1,6 +1,7 @@
 {
   "author": "Florian Keller <github@floriankeller.de>",
   "dependencies": {
+    "@types/swagger-schema-official": "2.0.17",
     "body-parser": "1.19.0",
     "compression": "1.7.4",
     "cross-env": "5.2.0",
@@ -14,7 +15,8 @@
     "logdown": "3.2.8",
     "moment": "2.24.0",
     "pm2": "3.5.1",
-    "sqlite3": "4.0.9"
+    "sqlite3": "4.0.9",
+    "swagger-ui-express": "4.0.6"
   },
   "description": "Receive and display data from your luftdaten device",
   "devDependencies": {
@@ -30,6 +32,7 @@
     "@types/helmet": "0.0.43",
     "@types/moment": "2.13.0",
     "@types/node": "~12",
+    "@types/swagger-ui-express": "3.0.1",
     "husky": "2.4.1",
     "lint-staged": "8.2.1",
     "prettier": "1.18.2",
