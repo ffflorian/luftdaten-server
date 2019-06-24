@@ -4,6 +4,7 @@ import * as express from 'express';
 import * as expressHandlebars from 'express-handlebars';
 import * as helmet from 'helmet';
 import * as http from 'http';
+import * as path from 'path';
 import {Spec} from 'swagger-schema-official';
 import * as swaggerUi from 'swagger-ui-express';
 
@@ -14,8 +15,8 @@ import {dataRoute, internalErrorRoute, mainRoute, robotsRoute} from './routes';
 export class Server {
   private readonly app: express.Express;
   private readonly knexService: KnexService;
-  private server?: http.Server;
   private readonly swaggerDocument: Spec;
+  private server?: http.Server;
 
   constructor(private readonly config: ServerConfig) {
     this.app = express();
@@ -55,9 +56,10 @@ export class Server {
       })
     );
     this.app.use(dataRoute(knexInstance, this.swaggerDocument));
-    this.app.use(mainRoute(knexInstance));
+    this.app.use(mainRoute());
     this.app.use(robotsRoute());
     this.initSwaggerRoute();
+    this.app.use(express.static(path.join(__dirname, '../static')));
     this.app.use(internalErrorRoute());
   }
 
