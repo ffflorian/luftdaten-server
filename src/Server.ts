@@ -4,6 +4,8 @@ import * as express from 'express';
 import * as expressHandlebars from 'express-handlebars';
 import * as helmet from 'helmet';
 import * as http from 'http';
+import {Spec} from 'swagger-schema-official';
+import * as swaggerUi from 'swagger-ui-express';
 
 import {ServerConfig} from './config';
 import {KnexService} from './knex/KnexService';
@@ -13,13 +15,25 @@ export class Server {
   private readonly app: express.Express;
   private readonly knexService: KnexService;
   private server?: http.Server;
+  private readonly swaggerDocument: Spec;
 
   constructor(private readonly config: ServerConfig) {
     this.app = express();
     this.knexService = new KnexService({development: config.DEVELOPMENT});
+    this.swaggerDocument = {
+      basePath: '/',
+      info: {
+        description: 'Receive and display data from your luftdaten device',
+        title: 'Luftdaten Server',
+        version: '1.0',
+      },
+      paths: {},
+      swagger: '2.0',
+    };
   }
 
   async init(): Promise<void> {
+    this.initSwaggerDoc();
     const knexInstance = await this.knexService.init();
 
     this.app.engine('handlebars', expressHandlebars());
@@ -40,33 +54,187 @@ export class Server {
         threshold: this.config.COMPRESS_MIN_SIZE,
       })
     );
-    this.app.use(dataRoute(knexInstance));
+    this.app.use(dataRoute(knexInstance, this.swaggerDocument));
     this.app.use(mainRoute(knexInstance));
+    this.initSwaggerRoute();
     this.app.use(internalErrorRoute());
   }
 
-  initCaching(): void {
-    if (this.config.DEVELOPMENT) {
-      this.app.use(helmet.noCache());
-    } else {
-      this.app.use((req, res, next) => {
-        const milliSeconds = 1000;
-        res.header('Cache-Control', `public, max-age=${this.config.CACHE_DURATION_SECONDS}`);
-        res.header('Expires', new Date(Date.now() + this.config.CACHE_DURATION_SECONDS * milliSeconds).toUTCString());
-        next();
-      });
-    }
-  }
-
-  initSecurityHeaders(): void {
+  private initSecurityHeaders(): void {
     this.app.disable('x-powered-by');
     this.app.use(
       helmet({
         frameguard: {action: 'deny'},
       })
     );
-    this.app.use(helmet.noSniff());
-    this.app.use(helmet.xssFilter());
+  }
+
+  private initSwaggerRoute(): void {
+    const swaggerUiOptions = {
+      host: `localhost:${this.config.PORT_HTTP}`,
+    };
+
+    this.app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, swaggerUiOptions));
+  }
+
+  private initSwaggerDoc(): void {
+    this.swaggerDocument.definitions = {
+      AllSchemas: {
+        allOf: [
+          {
+            $ref: '#/definitions/CreatedAt',
+          },
+          {
+            $ref: '#/definitions/Esp8266id',
+          },
+          {
+            $ref: '#/definitions/Humidity',
+          },
+          {
+            $ref: '#/definitions/Id',
+          },
+          {
+            $ref: '#/definitions/MaxMicro',
+          },
+          {
+            $ref: '#/definitions/MinMicro',
+          },
+          {
+            $ref: '#/definitions/Samples',
+          },
+          {
+            $ref: '#/definitions/SDS_P1',
+          },
+          {
+            $ref: '#/definitions/SDS_P2',
+          },
+          {
+            $ref: '#/definitions/Signal',
+          },
+          {
+            $ref: '#/definitions/SoftwareVersion',
+          },
+          {
+            $ref: '#/definitions/Temperature',
+          },
+          {
+            $ref: '#/definitions/UpdatedAt',
+          },
+        ],
+        type: 'object',
+      },
+      CreatedAt: {
+        properties: {
+          created_at: {
+            format: 'date-time',
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
+      Esp8266id: {
+        properties: {
+          esp8266id: {
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
+      Humidity: {
+        properties: {
+          humidity: {
+            format: 'float',
+            type: 'number',
+          },
+        },
+        type: 'object',
+      },
+      Id: {
+        properties: {
+          created_at: {
+            format: 'date-time',
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
+      MaxMicro: {
+        properties: {
+          max_micro: {
+            type: 'integer',
+          },
+        },
+        type: 'object',
+      },
+      MinMicro: {
+        properties: {
+          min_micro: {
+            type: 'integer',
+          },
+        },
+        type: 'object',
+      },
+      Samples: {
+        properties: {
+          samples: {
+            type: 'integer',
+          },
+        },
+        type: 'object',
+      },
+      SDS_P1: {
+        properties: {
+          SDS_P1: {
+            format: 'float',
+            type: 'number',
+          },
+        },
+        type: 'object',
+      },
+      SDS_P2: {
+        properties: {
+          SDS_P2: {
+            format: 'float',
+            type: 'number',
+          },
+        },
+        type: 'object',
+      },
+      Signal: {
+        properties: {
+          signal: {
+            type: 'integer',
+          },
+        },
+        type: 'object',
+      },
+      SoftwareVersion: {
+        properties: {
+          esp8266id: {
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
+      Temperature: {
+        properties: {
+          temperature: {
+            format: 'float',
+            type: 'number',
+          },
+        },
+        type: 'object',
+      },
+      UpdatedAt: {
+        properties: {
+          updated_at: {
+            format: 'date-time',
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
+    };
   }
 
   start(): Promise<number> {

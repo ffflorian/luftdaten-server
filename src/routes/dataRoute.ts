@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as Knex from 'knex';
 
+import {Spec} from 'swagger-schema-official';
 import {DevicePayload} from '../DevicePayload';
 import {KnexResult, KnexUpdate, TABLE} from '../knex/KnexService';
 import {buildDataFromPayload} from '../utils';
@@ -22,7 +23,7 @@ const getLimit = (limitString?: string, maximum = 1000): number => {
   return defaultLimit;
 };
 
-export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
+export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDocument: Spec) => {
   router.get('/data/humidity/?', async (req, res) => {
     const limit = getLimit(req.query.limit);
     const result = await knexInstance(TABLE.LUFTDATEN)
@@ -31,6 +32,39 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
       .limit(limit);
     return res.json(result);
   });
+
+  swaggerDocument.paths['/data/humidity'] = {
+    get: {
+      parameters: [
+        {
+          description: '',
+          in: 'query',
+          name: 'limit',
+          required: false,
+          type: 'integer',
+        },
+      ],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: '',
+          schema: {
+            items: {
+              allOf: [
+                {
+                  $ref: '#/definitions/Humidity',
+                },
+                {
+                  $ref: '#/definitions/CreatedAt',
+                },
+              ],
+            },
+            type: 'array',
+          },
+        },
+      },
+    },
+  };
 
   router.get('/data/temperature/?', async (req, res) => {
     const limit = getLimit(req.query.limit);
@@ -41,6 +75,39 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
     return res.json(result);
   });
 
+  swaggerDocument.paths['/data/temperature'] = {
+    get: {
+      parameters: [
+        {
+          description: '',
+          in: 'query',
+          name: 'limit',
+          required: false,
+          type: 'integer',
+        },
+      ],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: '',
+          schema: {
+            items: {
+              allOf: [
+                {
+                  $ref: '#/definitions/Temperature',
+                },
+                {
+                  $ref: '#/definitions/CreatedAt',
+                },
+              ],
+            },
+            type: 'array',
+          },
+        },
+      },
+    },
+  };
+
   router.get('/data/latest/?', async (req, res) => {
     const limit = getLimit(req.query.limit);
     const result = await knexInstance(TABLE.LUFTDATEN)
@@ -49,6 +116,32 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
       .limit(limit);
     return res.json(result);
   });
+
+  swaggerDocument.paths['/data/latest'] = {
+    get: {
+      parameters: [
+        {
+          description: '',
+          in: 'query',
+          name: 'limit',
+          required: false,
+          type: 'integer',
+        },
+      ],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: '',
+          schema: {
+            items: {
+              $ref: '#/definitions/AllSchemas',
+            },
+            type: 'array',
+          },
+        },
+      },
+    },
+  };
 
   router.get('/data/:id', async (req, res) => {
     const requestId = req.params.id;
@@ -63,6 +156,29 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
     return res.sendStatus(404);
   });
 
+  swaggerDocument.paths['/data/{id}'] = {
+    get: {
+      parameters: [
+        {
+          description: '',
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'integer',
+        },
+      ],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: '',
+          schema: {
+            $ref: '#/definitions/AllSchemas',
+          },
+        },
+      },
+    },
+  };
+
   router.post('/data/?', async (req, res) => {
     const payload: DevicePayload = req.body;
 
@@ -72,6 +188,28 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
 
     return res.sendStatus(200);
   });
+
+  swaggerDocument.paths['/data'] = {
+    post: {
+      consumes: ['application/json'],
+      parameters: [
+        {
+          description: '',
+          in: 'body',
+          name: 'body',
+          required: true,
+          schema: {
+            $ref: '#/definitions/AllSchemas',
+          },
+        },
+      ],
+      responses: {
+        '200': {
+          description: 'Data is ok',
+        },
+      },
+    },
+  };
 
   return router;
 };
