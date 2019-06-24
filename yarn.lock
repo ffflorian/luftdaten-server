@@ -50,10 +50,10 @@
   resolved "https://registry.npmjs.org/@ffflorian/prettier-config/-/prettier-config-0.0.5.tgz#5a6872fa650ac3b1312d5c5bc4d8281c7ca7b0ab"
   integrity sha512-GA3LYDYsLB23x85qIY6LaDkzSsxkguKPm8F1XSP7YEjpyFvpbwLj8G3owFJGEyImOwZZWH0WQRPFczCv6uSqrg==
 
-"@ffflorian/tslint-config@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@ffflorian/tslint-config/-/tslint-config-0.3.0.tgz#b4337c6cf5de918d000168b1d9186c36b77bd332"
-  integrity sha512-X88XjT0pQ44MyCZW77iNU8kg3leTzPjPv03jzItVZ5ONK/ZBRvZv+ezQSTtFy/LN9h5PoXNsHmzHsbWbC0a0bg==
+"@ffflorian/tslint-config@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@ffflorian/tslint-config/-/tslint-config-0.3.1.tgz#39ce1a65399abc6172d98b2c030ba0bb02768ffc"
+  integrity sha512-h1OY53cpV5XS4y5hOkELJRLh/t2tatOlqcU3XfUmiAi8C+9VpvgXxn/WHSSEwnS8gSsxZuGT2f3niLTVL4+VIw==
 
 "@opencensus/core@^0.0.8":
   version "0.0.8"
