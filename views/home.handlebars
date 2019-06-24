@@ -61,7 +61,7 @@
       return [new Date(created_at), humidity];
     });
 
-    buildChart('chart_temperature', 'Temperature in the last 12 hours', 'Temperature', {format: '## °C', viewWindow: {max: 40, min: -20}}, temperatureEntries);
-    buildChart('chart_humidity', 'Humidity in the last 12 hours', 'Humidity', {format: '##,## % RH', viewWindow: {max: 80, min: 20}}, humidityEntries);
+    buildChart('chart_temperature', 'Temperature in the last 12 hours', 'Temperature', {format: '## °C', viewWindow: {max: 45, min: -20}}, temperatureEntries);
+    buildChart('chart_humidity', 'Humidity in the last 12 hours', 'Humidity', {format: '##,## % RH', viewWindow: {max: 80}}, humidityEntries);
   }
 </script>
