@@ -15,13 +15,13 @@ export function buildDataFromPayload(payload: DevicePayload): KnexUpdate {
   const sensorValues = buildValuesFromSensor(payload.sensordatavalues);
 
   const data: KnexUpdate = {
-    SDS_P1: getFloatOrNull(sensorValues.SDS_P1),
-    SDS_P2: getFloatOrNull(sensorValues.SDS_P2),
     esp8266id: payload.esp8266id,
     humidity: getFloatOrNull(sensorValues.humidity),
     max_micro: getIntOrNull(sensorValues.max_micro),
     min_micro: getIntOrNull(sensorValues.min_micro),
     samples: getIntOrNull(sensorValues.samples),
+    SDS_P1: getFloatOrNull(sensorValues.SDS_P1),
+    SDS_P2: getFloatOrNull(sensorValues.SDS_P2),
     signal: getIntOrNull(sensorValues.signal),
     software_version: payload.software_version,
     temperature: getFloatOrNull(sensorValues.temperature),
