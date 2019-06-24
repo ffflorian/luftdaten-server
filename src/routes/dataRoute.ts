@@ -1,23 +1,52 @@
 import * as express from 'express';
 import * as Knex from 'knex';
-import * as logdown from 'logdown';
 
 import {DevicePayload} from '../DevicePayload';
 import {KnexResult, KnexUpdate, TABLE} from '../knex/KnexService';
 import {buildDataFromPayload} from '../utils';
 
-const logger = logdown('luftdaten-server/dataRoute', {
-  logger: console,
-  markdown: false,
-});
-
 const router = express.Router();
 
+const getLimit = (limitString?: string, maximum = 1000): number => {
+  const defaultLimit = 20;
+
+  if (limitString) {
+    try {
+      const parsedLimit = parseInt(limitString, 10);
+      return parsedLimit > maximum ? defaultLimit : parsedLimit;
+    } catch (error) {
+      return defaultLimit;
+    }
+  }
+
+  return defaultLimit;
+};
+
 export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
-  router.get('/data/?', async (req, res) => {
+  router.get('/data/humidity/?', async (req, res) => {
+    const limit = getLimit(req.query.limit);
+    const result = await knexInstance(TABLE.LUFTDATEN)
+      .select('created_at', 'humidity')
+      .orderBy('created_at', 'desc')
+      .limit(limit);
+    return res.json(result);
+  });
+
+  router.get('/data/temperature/?', async (req, res) => {
+    const limit = getLimit(req.query.limit);
+    const result = await knexInstance(TABLE.LUFTDATEN)
+      .select('created_at', 'temperature')
+      .orderBy('created_at', 'desc')
+      .limit(limit);
+    return res.json(result);
+  });
+
+  router.get('/data/latest/?', async (req, res) => {
+    const limit = getLimit(req.query.limit);
     const result = await knexInstance(TABLE.LUFTDATEN)
       .select('*')
-      .limit(20);
+      .orderBy('created_at', 'desc')
+      .limit(limit);
     return res.json(result);
   });
 
@@ -37,15 +66,9 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>) => {
   router.post('/data/?', async (req, res) => {
     const payload: DevicePayload = req.body;
 
-    logger.info('Received payload', payload);
-
     const data = buildDataFromPayload(payload);
 
-    const ids = await knexInstance(TABLE.LUFTDATEN)
-      .returning('id')
-      .insert(data);
-
-    logger.info('Saved to db with ids', ids);
+    await knexInstance(TABLE.LUFTDATEN).insert(data);
 
     return res.sendStatus(200);
   });

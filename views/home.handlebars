@@ -1,7 +1,10 @@
 <h1>Luftdaten Server</h1>
 
-<h2>Chart</h2>
-<div id="chart_div" style="width: 900px; height: 500px"></div>
+<h2>Temperature</h2>
+<div id="chart_temperature" style="width: 900px; height: 500px"></div>
+
+<h2>Humidity</h2>
+<div id="chart_humidity" style="width: 900px; height: 500px"></div>
 
 <h2>Last 20 values</h2>
 <table>
@@ -25,44 +28,45 @@
   google.charts.load('current', {packages: ['line', 'corechart']});
   google.charts.setOnLoadCallback(drawChart);
 
-  const element = document.getElementById('chart_div');
-
-  async function drawChart() {
-    const response = await fetch('/data');
-    const jsonData = await response.json();
-    const entries = jsonData.map(entry => {
-      const {created_at, temperature} = entry;
-      return [new Date(created_at), temperature];
-    });
+  function buildChart(elementId, title, vAxisName, vAxisMax, vAxisFormat, entries) {
+    const element = document.getElementById(elementId);
 
     const dataTable = new google.visualization.DataTable();
-
-    dataTable.addColumn('date', 'Date');
-    dataTable.addColumn('number', 'Temperature in °C');
+    dataTable.addColumn('date', 'Time');
+    dataTable.addColumn('number', vAxisName);
     dataTable.addRows(entries);
 
     const options = {
-      axes: {
-        y: {
-          Temps: {label: 'Temperature in °C'},
-        }
-      },
-      chart: {
-        title: 'Temperature and humidity at home'
-      },
       height: 500,
-      series: {
-        0: {axis: 'Temperature'},
+      title,
+      vAxis: {
+        format: vAxisFormat,
+        viewWindow: {
+          max: vAxisMax,
+        },
       },
       width: 900,
     };
 
-    const monthYearFormatter = new google.visualization.DateFormat({
-      pattern: 'MMM yyyy'
-    });
-    monthYearFormatter.format(dataTable, 0);
-
-    const chart = new google.charts.Line(element);
+    const chart = new google.visualization.LineChart(element);
     chart.draw(dataTable, options);
+  }
+
+  async function drawChart() {
+    const response = await fetch('/data/latest/?limit=300');
+    const jsonData = await response.json();
+
+    const temperatureEntries = jsonData.map(entry => {
+      const {created_at, temperature} = entry;
+      return [new Date(created_at), temperature];
+    });
+
+    const humidityEntries = jsonData.map(entry => {
+      const {created_at, humidity} = entry;
+      return [new Date(created_at), humidity];
+    });
+
+    buildChart('chart_temperature', 'Temperature in the last 12 hours', 'Temperature', 40, '## °C', temperatureEntries);
+    buildChart('chart_humidity', 'Humidity in the last 12 hours', 'Humidity', 70, '##,## % RH', humidityEntries);
   }
 </script>
