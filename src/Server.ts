@@ -7,7 +7,7 @@ import * as http from 'http';
 
 import {ServerConfig} from './config';
 import {KnexService} from './knex/KnexService';
-import {dataRoute, internalErrorRoute, mainRoute} from './routes';
+import {dataRoute, internalErrorRoute, mainRoute, robotsRoute} from './routes';
 
 export class Server {
   private readonly app: express.Express;
@@ -42,6 +42,7 @@ export class Server {
     );
     this.app.use(dataRoute(knexInstance));
     this.app.use(mainRoute(knexInstance));
+    this.app.use(robotsRoute());
     this.app.use(internalErrorRoute());
   }
 
