@@ -28,7 +28,7 @@ export class Server {
       basePath: '/',
       info: {
         description: 'Receive and display data from your luftdaten device',
-        title: 'Luftdaten Server',
+        title: 'Luftdaten',
         version: '1.0',
       },
       paths: {},
