@@ -1,0 +1,18 @@
+<h2>Humidity</h2>
+<div id="chart_humidity" style="width: 900px; height: 500px"></div>
+
+<script type="text/javascript">
+  fetch('/data/humidity/?limit=300').then(response => response.json()).then(jsonData => {
+    const humidityData = jsonData.map(entry => {
+      const {created_at, humidity} = entry;
+      return [new Date(created_at), humidity];
+    });
+
+    function drawChart() {
+      buildChart('chart_humidity', 'Humidity in the last 12 hours', 'Humidity', {format: '##,## % RH', viewWindow: {max: 80}}, humidityData);
+    }
+
+    google.charts.load('current', {packages: ['line', 'corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+  });
+</script>
