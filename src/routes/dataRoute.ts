@@ -52,10 +52,10 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
             items: {
               allOf: [
                 {
-                  $ref: '#/definitions/Humidity',
+                  $ref: '#/definitions/CreatedAt',
                 },
                 {
-                  $ref: '#/definitions/CreatedAt',
+                  $ref: '#/definitions/Humidity',
                 },
               ],
             },
@@ -94,10 +94,94 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
             items: {
               allOf: [
                 {
-                  $ref: '#/definitions/Temperature',
+                  $ref: '#/definitions/CreatedAt',
                 },
                 {
+                  $ref: '#/definitions/Temperature',
+                },
+              ],
+            },
+            type: 'array',
+          },
+        },
+      },
+    },
+  };
+
+  router.get('/data/sds_p1/?', async (req, res) => {
+    const limit = getLimit(req.query.limit);
+    const result = await knexInstance(TABLE.LUFTDATEN)
+      .select('created_at', 'SDS_P1')
+      .orderBy('created_at', 'desc')
+      .limit(limit);
+    return res.json(result);
+  });
+
+  swaggerDocument.paths['/data/sds_p1'] = {
+    get: {
+      parameters: [
+        {
+          description: '',
+          in: 'query',
+          name: 'limit',
+          required: false,
+          type: 'integer',
+        },
+      ],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: '',
+          schema: {
+            items: {
+              allOf: [
+                {
                   $ref: '#/definitions/CreatedAt',
+                },
+                {
+                  $ref: '#/definitions/SDS_P1',
+                },
+              ],
+            },
+            type: 'array',
+          },
+        },
+      },
+    },
+  };
+
+  router.get('/data/sds_p2/?', async (req, res) => {
+    const limit = getLimit(req.query.limit);
+    const result = await knexInstance(TABLE.LUFTDATEN)
+      .select('created_at', 'SDS_P2')
+      .orderBy('created_at', 'desc')
+      .limit(limit);
+    return res.json(result);
+  });
+
+  swaggerDocument.paths['/data/sds_p2'] = {
+    get: {
+      parameters: [
+        {
+          description: '',
+          in: 'query',
+          name: 'limit',
+          required: false,
+          type: 'integer',
+        },
+      ],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: '',
+          schema: {
+            items: {
+              allOf: [
+                {
+                  $ref: '#/definitions/CreatedAt',
+                },
+                {
+                  $ref: '#/definitions/SDS_P2',
                 },
               ],
             },
