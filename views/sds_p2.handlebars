@@ -9,7 +9,7 @@
     });
 
     function drawChart() {
-      buildChart('chart_sds_p2', 'Fine dust 2.5 µm in the last 12 hours', 'Fine dust 2.5 µm', {format: '##,## µg/m', viewWindow: {max: 30}}, sdsP2Data);
+      buildChart('chart_sds_p2', 'Fine dust 2.5 µm in the last 12 hours', 'Fine dust 2.5 µm', {format: '##,## µg/m^3', viewWindow: {max: 30}}, sdsP2Data);
     }
 
     google.charts.load('current', {packages: ['line', 'corechart']});

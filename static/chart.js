@@ -10,7 +10,7 @@ function buildChart(elementId, title, vAxisName, vAxisOptions, entries) {
     height: 500,
     title,
     vAxis: vAxisOptions,
-    chartArea: {left: 50},
+    chartArea: {left: 100},
     width: 900,
   };
 
