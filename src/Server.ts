@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as express from 'express';
 import * as expressHandlebars from 'express-handlebars';
+import initializeHelpers = require('handlebars-helpers');
 import * as helmet from 'helmet';
 import * as http from 'http';
 import * as path from 'path';
@@ -11,6 +12,8 @@ import * as swaggerUi from 'swagger-ui-express';
 import {ServerConfig} from './config';
 import {KnexService} from './knex/KnexService';
 import {dataRoute, internalErrorRoute, mainRoute, robotsRoute} from './routes';
+
+initializeHelpers(['comparison']);
 
 export class Server {
   private readonly app: express.Express;

@@ -28,11 +28,31 @@
       <div class="docs-nav">
         <div class="accordion-container">
           <div class="accordion">
-            <a a class="accordion-header c-hand" href="/temperature">Temperature</a>
-            <a a class="accordion-header c-hand" href="/humidity">Humidity</a>
-            <a a class="accordion-header c-hand" href="/sds_p1">Fine dust 10 µm</a>
-            <a a class="accordion-header c-hand" href="/sds_p2">Fine dust 2.5 µm</a>
-            <a a class="accordion-header c-hand" href="/entries">Last 20 entries</a>
+            {{#eq page "temperature"}}
+            <span class="accordion-header underline">Temperature</span>
+            {{else}}
+            <a class="accordion-header" href="/temperature">Temperature</a>
+            {{/eq}}
+            {{#eq page "humidity"}}
+            <span class="accordion-header underline">Humidity</span>
+            {{else}}
+            <a class="accordion-header" href="/humidity">Humidity</a>
+            {{/eq}}
+            {{#eq page "sds_p1"}}
+            <span class="accordion-header underline">Fine dust 10 µm</span>
+            {{else}}
+            <a class="accordion-header" href="/sds_p1">Fine dust 10 µm</a>
+            {{/eq}}
+            {{#eq page "sds_p2"}}
+            <span class="accordion-header underline">Fine dust 2.5 µm</span>
+            {{else}}
+            <a class="accordion-header" href="/sds_p2">Fine dust 2.5 µm</a>
+            {{/eq}}
+            {{#eq page "entries"}}
+            <span class="accordion-header underline">Last 20 entries</span>
+            {{else}}
+            <a class="accordion-header" href="/entries">Last 20 entries</a>
+            {{/eq}}
           </div>
         </div>
       </div>
@@ -42,6 +62,7 @@
         <div class="container">
           {{{body}}}
         </div>
+        {{#unless nofooter}}
         <div class="docs-footer container grid-lg" id="copyright">
           <p>
             Built by <a href="https://github.com/ffflorian">Florian Keller</a> with help from <a
@@ -50,6 +71,7 @@
             Code on <a href="https://github.com/ffflorian/luftdaten-server">GitHub</a>
           </p>
         </div>
+        {{/unless}}
       </div>
     </div>
   </div>
