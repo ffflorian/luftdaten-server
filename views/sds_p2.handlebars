@@ -1,0 +1,18 @@
+<h2>Fine dust 2.5 µm</h2>
+<div id="chart_sds_p2" style="width: 900px; height: 500px"></div>
+
+<script type="text/javascript">
+  fetch('/data/sds_p2/?limit=300').then(response => response.json()).then(jsonData => {
+    const sdsP2Data = jsonData.map(entry => {
+      const {created_at, SDS_P2} = entry;
+      return [new Date(created_at), SDS_P2];
+    });
+
+    function drawChart() {
+      buildChart('chart_sds_p2', 'Fine dust 2.5 µm in the last 12 hours', 'Fine dust 2.5 µm', {format: '##,## µg/m', viewWindow: {max: 30}}, sdsP2Data);
+    }
+
+    google.charts.load('current', {packages: ['line', 'corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+  });
+</script>
