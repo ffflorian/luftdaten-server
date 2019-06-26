@@ -5,8 +5,10 @@
   fetch('/data/humidity/?limit=300').then(response => response.json()).then(jsonData => {
     const humidityData = jsonData.map(entry => {
       const {created_at, humidity} = entry;
-      return [new Date(created_at), humidity];
+      return [createDateFromString(created_at), humidity];
     });
+
+    console.log(humidityData[0])
 
     function drawChart() {
       buildChart('chart_humidity', 'Humidity in the last 12 hours', 'Humidity', {format: '##,## % RH', viewWindow: {max: 80}}, humidityData);

@@ -5,7 +5,7 @@
   fetch('/data/sds_p1/?limit=300').then(response => response.json()).then(jsonData => {
     const sdsP1Data = jsonData.map(entry => {
       const {created_at, SDS_P1} = entry;
-      return [new Date(created_at), SDS_P1];
+      return [createDateFromString(created_at), SDS_P1];
     });
 
     function drawChart() {

@@ -5,11 +5,11 @@
   fetch('/data/temperature/?limit=300').then(response => response.json()).then(jsonData => {
     const temperatureData = jsonData.map(entry => {
       const {created_at, temperature} = entry;
-      return [new Date(created_at), temperature];
+      return [createDateFromString(created_at), temperature];
     });
 
     function drawChart() {
-      buildChart('chart_temperature', 'Temperature in the last 12 hours', 'Temperature', {format: '## °C', viewWindow: {max: 45, min: -20}}, temperatureData);
+      buildChart('chart_temperature', 'Temperature in the last 12 hours', 'Temperature', {format: '## °C', viewWindow: {max: 50, min: -20}}, temperatureData);
     }
 
     google.charts.load('current', {packages: ['line', 'corechart']});

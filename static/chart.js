@@ -7,6 +7,9 @@ function buildChart(elementId, title, vAxisName, vAxisOptions, entries) {
   dataTable.addRows(entries);
 
   const options = {
+    hAxis: {
+      format: 'HH:mm'
+    },
     height: 500,
     title,
     vAxis: vAxisOptions,
@@ -16,4 +19,9 @@ function buildChart(elementId, title, vAxisName, vAxisOptions, entries) {
 
   const chart = new google.visualization.LineChart(element);
   chart.draw(dataTable, options);
+}
+
+function createDateFromString(str) {
+  const date = new Date(`${str} UTC`).getTime();
+  return new Date(date + 36e5);
 }
