@@ -20,9 +20,9 @@ export interface KnexUpdate {
 }
 
 export interface KnexResult extends Required<KnexUpdate> {
-  created_at: Date;
+  created_at: string;
   software_version: string;
-  updated_at: Date;
+  updated_at: string;
 }
 
 export interface KnexServiceOptions {

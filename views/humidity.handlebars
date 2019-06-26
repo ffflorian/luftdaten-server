@@ -5,7 +5,7 @@
   fetch('/data/humidity/?limit=300').then(response => response.json()).then(jsonData => {
     const humidityData = jsonData.map(entry => {
       const {created_at, humidity} = entry;
-      return [createDateFromString(created_at), humidity];
+      return [new Date(created_at), humidity];
     });
 
     console.log(humidityData[0])

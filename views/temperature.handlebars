@@ -5,7 +5,7 @@
   fetch('/data/temperature/?limit=300').then(response => response.json()).then(jsonData => {
     const temperatureData = jsonData.map(entry => {
       const {created_at, temperature} = entry;
-      return [createDateFromString(created_at), temperature];
+      return [new Date(created_at), temperature];
     });
 
     function drawChart() {

@@ -1,6 +1,7 @@
 import * as moment from 'moment';
+
 import {DevicePayload, SensorValue} from './DevicePayload';
-import {KnexUpdate} from './knex/KnexService';
+import {KnexResult, KnexUpdate} from './knex/KnexService';
 
 export function formatDate(): string {
   return moment().format('YYYY-MM-DD HH:mm:ss');
@@ -61,4 +62,13 @@ export function getFloatOrNull(value: string): number | null {
   } catch (error) {}
 
   return result;
+}
+
+export function getTimeZonedResult<T extends keyof KnexResult>(
+  entries: Array<Pick<KnexResult, T | 'created_at'>>
+): Array<Pick<KnexResult, T | 'created_at'>> {
+  return entries.map(entry => {
+    entry.created_at = moment.utc(entry.created_at, 'YYYY-MM-DD HH:mm:ss').toLocaleString();
+    return entry;
+  });
 }

@@ -4,7 +4,7 @@ import * as Knex from 'knex';
 import {Spec} from 'swagger-schema-official';
 import {DevicePayload} from '../DevicePayload';
 import {KnexResult, KnexUpdate, TABLE} from '../knex/KnexService';
-import {buildDataFromPayload} from '../utils';
+import {buildDataFromPayload, getTimeZonedResult} from '../utils';
 
 const router = express.Router();
 
@@ -72,7 +72,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       .select('created_at', 'temperature')
       .orderBy('created_at', 'desc')
       .limit(limit);
-    return res.json(result);
+    return res.json(getTimeZonedResult(result));
   });
 
   swaggerDocument.paths['/data/temperature'] = {
@@ -114,7 +114,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       .select('created_at', 'SDS_P1')
       .orderBy('created_at', 'desc')
       .limit(limit);
-    return res.json(result);
+    return res.json(getTimeZonedResult(result));
   });
 
   swaggerDocument.paths['/data/sds_p1'] = {
@@ -156,7 +156,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       .select('created_at', 'SDS_P2')
       .orderBy('created_at', 'desc')
       .limit(limit);
-    return res.json(result);
+    return res.json(getTimeZonedResult(result));
   });
 
   swaggerDocument.paths['/data/sds_p2'] = {
@@ -198,7 +198,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       .select('*')
       .orderBy('created_at', 'desc')
       .limit(limit);
-    return res.json(result);
+    return res.json(getTimeZonedResult(result));
   });
 
   swaggerDocument.paths['/data/latest'] = {
@@ -234,7 +234,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       .where({id: requestId});
 
     if (result.length) {
-      return res.json(result[0]);
+      return res.json(getTimeZonedResult(result)[0]);
     }
 
     return res.sendStatus(404);
