@@ -64,7 +64,7 @@ export function getFloatOrNull(value: string): number | null {
   return result;
 }
 
-export function getTimeZonedResult<T extends keyof KnexResult>(
+export function fixTimeZone<T extends keyof KnexResult>(
   entries: Array<Pick<KnexResult, T | 'created_at'>>
 ): Array<Pick<KnexResult, T | 'created_at'>> {
   return entries.map(entry => {
