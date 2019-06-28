@@ -8,7 +8,7 @@ import {buildDataFromPayload, fixTimeZone} from '../utils';
 
 const router = express.Router();
 
-const getLimit = (limitString?: string, maximum = 1000): number => {
+const getLimit = (limitString?: string, maximum = 10000): number => {
   const defaultLimit = 20;
 
   if (limitString) {
