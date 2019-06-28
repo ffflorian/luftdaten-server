@@ -1,22 +1,28 @@
-function buildChart(elementId, title, vAxisName, vAxisOptions, entries) {
-  const element = document.getElementById(elementId);
+function getData(endpoint, limit = 10000) {
+  return fetch(`/data/${endpoint}/?limit=${limit}`).then(response => response.json());
+}
 
+function buildOptions(title, format) {
+  return {
+    allowAsync: true,
+    chartArea: {left: 100},
+    height: 500,
+    title,
+    vAxis: {format},
+    width: 900,
+  };
+}
+
+function buildChart(elementId) {
+  const element = document.getElementById(elementId);
+  return new google.visualization.LineChart(element);
+}
+
+function buildDataTable(vAxisName, entries) {
   const dataTable = new google.visualization.DataTable();
   dataTable.addColumn('date', 'Time');
   dataTable.addColumn('number', vAxisName);
   dataTable.addRows(entries);
 
-  const options = {
-    hAxis: {
-      format: 'HH:mm'
-    },
-    height: 500,
-    title,
-    vAxis: vAxisOptions,
-    chartArea: {left: 100},
-    width: 900,
-  };
-
-  const chart = new google.visualization.LineChart(element);
-  chart.draw(dataTable, options);
+  return dataTable;
 }
