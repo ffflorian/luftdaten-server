@@ -1,6 +1,5 @@
 node_modules/
 dist/
 *.log
-spec/.temp
 *.sqlite
-zip/
+.passwd
