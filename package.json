@@ -79,7 +79,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
-    "dist": "yarn clean && yarn build",
+    "dist": "yarn clean && yarn build && node bin/commit_hash.js",
     "fix": "yarn fix:other && yarn fix:ts",
     "fix:other": "yarn prettier --write",
     "fix:ts": "yarn lint:ts --fix",
@@ -88,7 +88,7 @@
     "lint:ts": "tslint --project tsconfig.json",
     "prettier": "prettier \"*.{json,md}\"",
     "start": "pm2 start",
-    "start:dev": "cross-env NODE_DEBUG=\"luftdaten-server/*\" ts-node src/index.ts",
+    "start:dev": "cross-env NODE_DEBUG=\"luftdaten-server/*\" ENVIRONMENT=\"dev\" ts-node src/index.ts",
     "test": "exit 0",
     "zip": "rimraf zip && jszip-cli"
   },

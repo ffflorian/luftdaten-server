@@ -5,7 +5,7 @@ export const knexConfig: Knex.Config = {
   connection: {
     filename: 'luftdaten.sqlite',
   },
-  debug: true,
+  debug: false,
   migrations: {
     directory: './knex/migrations',
     tableName: 'knex_migrations',

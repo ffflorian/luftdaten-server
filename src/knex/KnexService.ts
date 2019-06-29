@@ -1,5 +1,4 @@
 import * as Knex from 'knex';
-
 import {knexConfig} from './knexfile';
 
 export enum TABLE {
@@ -33,7 +32,7 @@ export class KnexService {
   private readonly knex: Knex<KnexResult, KnexUpdate>;
 
   constructor(options: KnexServiceOptions = {}) {
-    knexConfig.debug = options.development === false;
+    knexConfig.debug = options.development === true;
 
     this.knex = Knex(knexConfig);
   }

@@ -11,7 +11,7 @@ import * as swaggerUi from 'swagger-ui-express';
 
 import {ServerConfig} from './config';
 import {KnexService} from './knex/KnexService';
-import {dataRoute, internalErrorRoute, mainRoute, robotsRoute} from './routes';
+import {commitRoute, dataRoute, internalErrorRoute, mainRoute, robotsRoute} from './routes';
 
 initializeHelpers(['comparison']);
 
@@ -59,6 +59,7 @@ export class Server {
       })
     );
     this.app.use(dataRoute(knexInstance, this.swaggerDocument));
+    this.app.use(commitRoute(this.config));
     this.app.use(mainRoute());
     this.app.use(robotsRoute());
     this.initSwaggerRoute();
