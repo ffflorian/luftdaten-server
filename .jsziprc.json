@@ -1,7 +1,0 @@
-{
-  "entries": ["package.json", "dist/", "knex/"],
-  "force": true,
-  "ignoreEntries": [".DS_Store", "*.d.ts"],
-  "mode": "add",
-  "outputEntry": "zip/luftdaten-server.zip"
-}
