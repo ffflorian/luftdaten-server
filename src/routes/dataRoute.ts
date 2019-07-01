@@ -63,6 +63,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           },
         },
       },
+      tags: ['Data'],
     },
   };
 
@@ -105,6 +106,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           },
         },
       },
+      tags: ['Data'],
     },
   };
 
@@ -147,6 +149,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           },
         },
       },
+      tags: ['Data'],
     },
   };
 
@@ -189,6 +192,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           },
         },
       },
+      tags: ['Data'],
     },
   };
 
@@ -218,12 +222,13 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           description: '',
           schema: {
             items: {
-              $ref: '#/definitions/AllSchemas',
+              $ref: '#/definitions/AllLuftdatenDefinitions',
             },
             type: 'array',
           },
         },
       },
+      tags: ['Data'],
     },
   };
 
@@ -256,10 +261,11 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
         '200': {
           description: '',
           schema: {
-            $ref: '#/definitions/AllSchemas',
+            $ref: '#/definitions/AllLuftdatenDefinitions',
           },
         },
       },
+      tags: ['Data'],
     },
   };
 
@@ -283,7 +289,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           name: 'body',
           required: true,
           schema: {
-            $ref: '#/definitions/AllSchemas',
+            $ref: '#/definitions/AllLuftdatenDefinitions',
           },
         },
       ],
@@ -292,6 +298,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           description: 'Data is ok',
         },
       },
+      tags: ['Data'],
     },
   };
 

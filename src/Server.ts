@@ -1,8 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as express from 'express';
-import * as expressHandlebars from 'express-handlebars';
-import initializeHelpers = require('handlebars-helpers');
 import * as helmet from 'helmet';
 import * as http from 'http';
 import * as path from 'path';
@@ -12,8 +10,6 @@ import * as swaggerUi from 'swagger-ui-express';
 import {ServerConfig} from './config';
 import {KnexService} from './knex/KnexService';
 import {commitRoute, dataRoute, internalErrorRoute, mainRoute, robotsRoute} from './routes';
-
-initializeHelpers(['comparison']);
 
 export class Server {
   private readonly app: express.Express;
@@ -40,9 +36,6 @@ export class Server {
     this.initSwaggerDoc();
     const knexInstance = await this.knexService.init();
 
-    this.app.engine('handlebars', expressHandlebars());
-    this.app.set('view engine', 'handlebars');
-
     this.app.use((req, res, next) => {
       bodyParser.json({limit: '200mb'})(req, res, error => {
         if (error) {
@@ -59,8 +52,8 @@ export class Server {
       })
     );
     this.app.use(dataRoute(knexInstance, this.swaggerDocument));
-    this.app.use(commitRoute(this.config));
-    this.app.use(mainRoute());
+    this.app.use(commitRoute(this.config, this.swaggerDocument));
+    this.app.use(mainRoute(this.config, this.swaggerDocument));
     this.app.use(robotsRoute());
     this.initSwaggerRoute();
     this.app.use(express.static(path.join(__dirname, '../static')));
@@ -85,8 +78,18 @@ export class Server {
   }
 
   private initSwaggerDoc(): void {
+    this.swaggerDocument.tags = [
+      {
+        description: 'All about the data',
+        name: 'Data',
+      },
+      {
+        description: 'Information about the server',
+        name: 'Server',
+      },
+    ];
     this.swaggerDocument.definitions = {
-      AllSchemas: {
+      AllLuftdatenDefinitions: {
         allOf: [
           {
             $ref: '#/definitions/CreatedAt',
@@ -205,6 +208,24 @@ export class Server {
             type: 'number',
           },
         },
+        type: 'object',
+      },
+      ServerInfo: {
+        properties: {
+          code: {
+            type: 'integer',
+          },
+          commit: {
+            type: 'string',
+          },
+          message: {
+            type: 'string',
+          },
+          uptime: {
+            type: 'string',
+          },
+        },
+        required: ['code', 'message', 'uptime'],
         type: 'object',
       },
       Signal: {

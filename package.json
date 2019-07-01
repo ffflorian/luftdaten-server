@@ -7,11 +7,8 @@
     "cross-env": "5.2.0",
     "dotenv": "8.0.0",
     "express": "4.17.1",
-    "express-handlebars": "3.1.0",
     "fs-extra": "8.1.0",
-    "handlebars-helpers": "0.10.0",
     "helmet": "3.18.0",
-    "http-server": "0.11.1",
     "knex": "0.18.1",
     "logdown": "3.2.8",
     "moment": "2.24.0",
@@ -19,18 +16,15 @@
     "sqlite3": "4.0.9",
     "swagger-ui-express": "4.0.6"
   },
-  "description": "Receive and display data from your luftdaten device",
+  "description": "Receive and serve data from your luftdaten device",
   "devDependencies": {
-    "@ffflorian/jszip-cli": "2.3.1",
     "@ffflorian/prettier-config": "0.0.5",
     "@ffflorian/tslint-config": "0.3.1",
     "@types/body-parser": "1.17.0",
     "@types/compression": "0.0.36",
     "@types/dotenv": "6.1.1",
     "@types/express": "4.17.0",
-    "@types/express-handlebars": "0.0.32",
     "@types/fs-extra": "8.0.0",
-    "@types/handlebars-helpers": "0.5.2",
     "@types/helmet": "0.0.43",
     "@types/moment": "2.13.0",
     "@types/node": "~12",
@@ -63,7 +57,7 @@
   ],
   "license": "MIT",
   "lint-staged": {
-    "*.{json,md,css}": [
+    "*.{json,md}": [
       "prettier --write",
       "git add"
     ],
@@ -89,8 +83,7 @@
     "prettier": "prettier \"*.{json,md}\"",
     "start": "pm2 start",
     "start:dev": "cross-env NODE_DEBUG=\"luftdaten-server/*\" ENVIRONMENT=\"dev\" ts-node src/index.ts",
-    "test": "exit 0",
-    "zip": "rimraf zip && jszip-cli"
+    "test": "exit 0"
   },
   "version": "1.0.0"
 }
