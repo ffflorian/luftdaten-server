@@ -228,10 +228,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@types/swagger-schema-official@2.0.17":
-  version "2.0.17"
-  resolved "https://registry.yarnpkg.com/@types/swagger-schema-official/-/swagger-schema-official-2.0.17.tgz#c9086ec36ce00ae21e5a73a507c8fc94938f17e1"
-  integrity sha512-+lvLQ9GHI49zzXMNABVbsyCYXFdflW5IMUM/hgqEEholSyUwdsovwTohx2kQIDrhJOUAZjskOHbeWPy/xbAdqA==
+"@types/swagger-schema-official@2.0.18":
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/@types/swagger-schema-official/-/swagger-schema-official-2.0.18.tgz#5ce35ec9949ff5b5bfec69b83f5bc3dd63a4dd97"
+  integrity sha512-zQsYKjtPf7Hvnp6KR4DTypXZ12tlH7k670d4QXuxzkofefBy9e2GwRKyV06lgTi3qw/OH/JFTDYe/x3uQmnusQ==
 
 "@types/swagger-ui-express@3.0.1":
   version "3.0.1"
