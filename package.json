@@ -14,7 +14,7 @@
     "moment": "2.24.0",
     "pm2": "3.5.1",
     "sqlite3": "4.0.9",
-    "swagger-ui-express": "4.0.6"
+    "swagger-ui-express": "4.0.7"
   },
   "description": "Receive and serve data from your luftdaten device",
   "devDependencies": {
