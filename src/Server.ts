@@ -60,6 +60,30 @@ export class Server {
     this.app.use(internalErrorRoute());
   }
 
+  start(): Promise<number> {
+    return this.init().then(
+      () =>
+        new Promise((resolve, reject) => {
+          if (this.server) {
+            reject('Server is already running.');
+          } else if (this.config.PORT_HTTP) {
+            this.server = this.app.listen(this.config.PORT_HTTP, () => resolve(this.config.PORT_HTTP));
+          } else {
+            reject('Server port not specified.');
+          }
+        })
+    );
+  }
+
+  async stop(): Promise<void> {
+    if (this.server) {
+      this.server.close();
+      this.server = undefined;
+    } else {
+      throw new Error('Server is not running.');
+    }
+  }
+
   private initSecurityHeaders(): void {
     this.app.disable('x-powered-by');
     this.app.use(
@@ -263,29 +287,5 @@ export class Server {
         type: 'object',
       },
     };
-  }
-
-  start(): Promise<number> {
-    return this.init().then(
-      () =>
-        new Promise((resolve, reject) => {
-          if (this.server) {
-            reject('Server is already running.');
-          } else if (this.config.PORT_HTTP) {
-            this.server = this.app.listen(this.config.PORT_HTTP, () => resolve(this.config.PORT_HTTP));
-          } else {
-            reject('Server port not specified.');
-          }
-        })
-    );
-  }
-
-  async stop(): Promise<void> {
-    if (this.server) {
-      this.server.close();
-      this.server = undefined;
-    } else {
-      throw new Error('Server is not running.');
-    }
   }
 }
