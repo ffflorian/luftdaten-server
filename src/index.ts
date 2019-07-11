@@ -1,6 +1,5 @@
 import * as logdown from 'logdown';
 
-import {config} from './config';
 import {Server} from './Server';
 import {formatDate} from './utils';
 
@@ -9,7 +8,7 @@ const logger = logdown('luftdaten-server/index', {
   markdown: false,
 });
 
-const server = new Server(config);
+const server = new Server();
 
 server
   .start()

@@ -38,6 +38,10 @@ Your data will be saved to **`luftdaten.sqlite`**.
 }
 ```
 
+## REST API
+
+See [the Swagger docs](./docs/swagger.md) or open [`/swagger-ui`](http://localhost:21080/swagger-ui) in your browser.
+
 ## Displaying the data
 
 To display the data, check out [luftdaten-site](https://github.com/ffflorian/luftdaten-site).

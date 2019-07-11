@@ -6,19 +6,21 @@ import * as path from 'path';
 import {Spec} from 'swagger-schema-official';
 import * as swaggerUi from 'swagger-ui-express';
 
-import {ServerConfig} from './config';
+import {ServerConfig, defaultConfig} from './config';
 import {KnexService} from './knex/KnexService';
 import {commitRoute, dataRoute, internalErrorRoute, mainRoute, robotsRoute} from './routes';
 
 export class Server {
+  readonly swaggerDocument: Spec;
   private readonly app: express.Express;
+  private readonly config: ServerConfig;
   private readonly knexService: KnexService;
-  private readonly swaggerDocument: Spec;
   private server?: http.Server;
 
-  constructor(private readonly config: ServerConfig) {
+  constructor(config?: Partial<ServerConfig>) {
+    this.config = {...defaultConfig, ...config};
     this.app = express();
-    this.knexService = new KnexService({development: config.DEVELOPMENT});
+    this.knexService = new KnexService({development: this.config.DEVELOPMENT});
     this.swaggerDocument = {
       basePath: '/',
       info: {
