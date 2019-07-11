@@ -1,7 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as express from 'express';
-import * as helmet from 'helmet';
 import * as http from 'http';
 import * as path from 'path';
 import {Spec} from 'swagger-schema-official';
@@ -36,6 +35,7 @@ export class Server {
     this.initSwaggerDoc();
     const knexInstance = await this.knexService.init();
 
+    this.app.disable('x-powered-by');
     this.app.use((req, res, next) => {
       bodyParser.json({limit: '200mb'})(req, res, error => {
         if (error) {
@@ -44,7 +44,11 @@ export class Server {
         return next();
       });
     });
-    this.initSecurityHeaders();
+    this.app.use((req, res, next) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      next();
+    });
     this.app.use(
       compression({
         level: this.config.COMPRESS_LEVEL,
@@ -82,15 +86,6 @@ export class Server {
     } else {
       throw new Error('Server is not running.');
     }
-  }
-
-  private initSecurityHeaders(): void {
-    this.app.disable('x-powered-by');
-    this.app.use(
-      helmet({
-        frameguard: {action: 'deny'},
-      })
-    );
   }
 
   private initSwaggerRoute(): void {
