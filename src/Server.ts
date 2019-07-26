@@ -90,14 +90,6 @@ export class Server {
     }
   }
 
-  private initSwaggerRoute(): void {
-    const swaggerUiOptions = {
-      host: `localhost:${this.config.PORT_HTTP}`,
-    };
-
-    this.app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, swaggerUiOptions));
-  }
-
   private initSwaggerDoc(): void {
     this.swaggerDocument.tags = [
       {
@@ -284,5 +276,13 @@ export class Server {
         type: 'object',
       },
     };
+  }
+
+  private initSwaggerRoute(): void {
+    const swaggerUiOptions = {
+      host: `localhost:${this.config.PORT_HTTP}`,
+    };
+
+    this.app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, swaggerUiOptions));
   }
 }
