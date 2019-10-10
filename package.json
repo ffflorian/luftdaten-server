@@ -53,7 +53,7 @@
     "server",
     "typescript"
   ],
-  "license": "MIT",
+  "license": "GPL-3.0",
   "lint-staged": {
     "*.{json,md}": [
       "prettier --write",
