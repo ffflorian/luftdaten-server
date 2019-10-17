@@ -240,10 +240,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@types/swagger-schema-official@2.0.18":
-  version "2.0.18"
-  resolved "https://registry.npmjs.org/@types/swagger-schema-official/-/swagger-schema-official-2.0.18.tgz#5ce35ec9949ff5b5bfec69b83f5bc3dd63a4dd97"
-  integrity sha512-zQsYKjtPf7Hvnp6KR4DTypXZ12tlH7k670d4QXuxzkofefBy9e2GwRKyV06lgTi3qw/OH/JFTDYe/x3uQmnusQ==
+"@types/swagger-schema-official@2.0.19":
+  version "2.0.19"
+  resolved "https://registry.npmjs.org/@types/swagger-schema-official/-/swagger-schema-official-2.0.19.tgz#8e890e5b146b31c6fa9052616ca28229b11eb883"
+  integrity sha512-jxL2fC4PNNz1T7C5GLqcvYBX38W9VkQS/e0QM/8ljnyLrGakdzo27WX1PkGcim+GXwiQR0DaoMKjQOx398JeAA==
 
 "@types/swagger-ui-express@3.0.1":
   version "3.0.1"
