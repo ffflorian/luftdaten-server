@@ -283,6 +283,6 @@ export class Server {
       host: `localhost:${this.config.PORT_HTTP}`,
     };
 
-    this.app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, swaggerUiOptions));
+    this.app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, {options: swaggerUiOptions}));
   }
 }
