@@ -236,7 +236,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
     const requestId = req.params.id;
     const result = await knexInstance(TABLE.LUFTDATEN)
       .select('*')
-      .where('id', '=', requestId);
+      .where('id', requestId);
 
     if (result.length) {
       return res.json(fixTimeZone(result)[0]);
