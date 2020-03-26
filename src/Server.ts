@@ -279,10 +279,10 @@ export class Server {
   }
 
   private initSwaggerRoute(): void {
-    const swaggerUiOptions = {
+    const swaggerOptions: swaggerUi.SwaggerOptions = {
       host: `localhost:${this.config.PORT_HTTP}`,
     };
 
-    this.app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, {options: swaggerUiOptions}));
+    this.app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, {}, {options: swaggerOptions}));
   }
 }
