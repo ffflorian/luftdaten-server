@@ -198,10 +198,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
 
   router.get('/data/latest/?', async (req, res) => {
     const limit = getLimit(req.query.limit);
-    const result = await knexInstance(TABLE.LUFTDATEN)
-      .select('*')
-      .orderBy('created_at', 'desc')
-      .limit(limit);
+    const result = await knexInstance(TABLE.LUFTDATEN).select('*').orderBy('created_at', 'desc').limit(limit);
     return res.json(fixTimeZone(result));
   });
 
@@ -234,9 +231,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
 
   router.get('/data/:id', async (req, res) => {
     const requestId = req.params.id;
-    const result = await knexInstance(TABLE.LUFTDATEN)
-      .select('*')
-      .where({id: requestId});
+    const result = await knexInstance(TABLE.LUFTDATEN).select('*').where({id: requestId});
 
     if (result.length) {
       return res.json(fixTimeZone(result)[0]);
