@@ -100,7 +100,7 @@ Receive and display data from your luftdaten device
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| body | body |  | Yes | [AllLuftdatenDefinitions](#allluftdatendefinitions) |
+| body | body |  | Yes | [DevicePayload](#devicepayload) |
 
 ##### Responses
 
@@ -119,7 +119,7 @@ Get the latest commit hash as plain text
 
 | Code | Description | Schema |
 | ---- | ----------- | ------ |
-| 200 |  | string |
+| 200 |  | [Commit](#commit) |
 
 ### /
 
@@ -139,13 +139,30 @@ Get the latest commit hash as plain text
 | ---- | ---- | ----------- | -------- |
 | AllLuftdatenDefinitions | object |  |  |
 
+#### Commit
+
+The latest commit hash
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| Commit | string | The latest commit hash |  |
+
 #### CreatedAt
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | created_at | dateTime |  | No |
 
+#### DevicePayload
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| sensordatavalues | [ [SensorValue](#sensorvalue) ] |  | No |
+| software_version | string |  | No |
+
 #### Esp8266id
+
+The sensor ID
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
@@ -161,7 +178,7 @@ Get the latest commit hash as plain text
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| created_at | dateTime |  | No |
+| Id | object |  |  |
 
 #### MaxMicro
 
@@ -193,12 +210,21 @@ Get the latest commit hash as plain text
 | ---- | ---- | ----------- | -------- |
 | SDS_P2 | float |  | No |
 
+#### SensorValue
+
+A sensor value, e.g. `{ "value_type": "humidity", "value": "37.10" }`
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| value | string |  | No |
+| value_type | string | The type of sensor, e.g. "humidity" | No |
+
 #### ServerInfo
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | code | integer |  | Yes |
-| commit | string |  | No |
+| commit | [Commit](#commit) |  | No |
 | message | string |  | Yes |
 | uptime | string |  | Yes |
 
@@ -212,7 +238,7 @@ Get the latest commit hash as plain text
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
-| esp8266id | string |  | No |
+| SoftwareVersion | object |  |  |
 
 #### Temperature
 
