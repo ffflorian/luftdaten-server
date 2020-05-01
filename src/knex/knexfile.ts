@@ -3,7 +3,7 @@ import * as Knex from 'knex';
 export const knexConfig: Knex.Config = {
   client: 'sqlite3',
   connection: {
-    filename: 'luftdaten.sqlite',
+    filename: './luftdaten.sqlite',
   },
   debug: false,
   migrations: {

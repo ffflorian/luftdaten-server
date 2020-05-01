@@ -146,6 +146,11 @@ export class Server {
         ],
         type: 'object',
       },
+      Commit: {
+        description: 'The latest commit hash',
+        example: '178ad7dd036f7f111259b6fbe16499b9c25c57b0',
+        type: 'string',
+      },
       CreatedAt: {
         properties: {
           created_at: {
@@ -155,7 +160,27 @@ export class Server {
         },
         type: 'object',
       },
+      DevicePayload: {
+        allOf: [
+          {
+            $ref: '#/definitions/Esp8266id',
+          },
+        ],
+        properties: {
+          sensordatavalues: {
+            items: {
+              $ref: '#/definitions/SensorValue',
+            },
+            type: 'array',
+          },
+          software_version: {
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
       Esp8266id: {
+        description: 'The sensor ID',
         properties: {
           esp8266id: {
             type: 'string',
@@ -173,12 +198,11 @@ export class Server {
         type: 'object',
       },
       Id: {
-        properties: {
-          created_at: {
-            format: 'date-time',
-            type: 'string',
+        allOf: [
+          {
+            $ref: '#/definitions/CreatedAt',
           },
-        },
+        ],
         type: 'object',
       },
       MaxMicro: {
@@ -223,13 +247,26 @@ export class Server {
         },
         type: 'object',
       },
+      SensorValue: {
+        description: 'A sensor value, e.g. `{ "value_type": "humidity", "value": "37.10" }`',
+        properties: {
+          value: {
+            type: 'string',
+          },
+          value_type: {
+            description: 'The type of sensor, e.g. "humidity"',
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
       ServerInfo: {
         properties: {
           code: {
             type: 'integer',
           },
           commit: {
-            type: 'string',
+            $ref: '#/definitions/Commit',
           },
           message: {
             type: 'string',
@@ -250,11 +287,11 @@ export class Server {
         type: 'object',
       },
       SoftwareVersion: {
-        properties: {
-          esp8266id: {
-            type: 'string',
+        allOf: [
+          {
+            $ref: '#/definitions/Esp8266id',
           },
-        },
+        ],
         type: 'object',
       },
       Temperature: {

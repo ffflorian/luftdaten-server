@@ -25,7 +25,7 @@ const getLimit = (limitString?: string, maximum = 10000): number => {
 
 export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDocument: Spec) => {
   router.get('/data/humidity/?', async (req, res) => {
-    const limit = getLimit(req.query.limit.toString());
+    const limit = getLimit(req.query.limit?.toString());
     const result = await knexInstance(TABLE.LUFTDATEN)
       .select('created_at', 'humidity')
       .orderBy('created_at', 'desc')
@@ -68,7 +68,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
   };
 
   router.get('/data/temperature/?', async (req, res) => {
-    const limit = getLimit(req.query.limit.toString());
+    const limit = getLimit(req.query.limit?.toString());
     const result = await knexInstance(TABLE.LUFTDATEN)
       .select('created_at', 'temperature')
       .orderBy('created_at', 'desc')
@@ -111,7 +111,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
   };
 
   router.get('/data/sds_p1/?', async (req, res) => {
-    const limit = getLimit(req.query.limit.toString());
+    const limit = getLimit(req.query.limit?.toString());
     const result = await knexInstance(TABLE.LUFTDATEN)
       .select('created_at', 'SDS_P1')
       .orderBy('created_at', 'desc')
@@ -154,7 +154,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
   };
 
   router.get('/data/sds_p2/?', async (req, res) => {
-    const limit = getLimit(req.query.limit.toString());
+    const limit = getLimit(req.query.limit?.toString());
     const result = await knexInstance(TABLE.LUFTDATEN)
       .select('created_at', 'SDS_P2')
       .orderBy('created_at', 'desc')
@@ -197,7 +197,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
   };
 
   router.get('/data/latest/?', async (req, res) => {
-    const limit = getLimit(req.query.limit.toString());
+    const limit = getLimit(req.query.limit?.toString());
     const result = await knexInstance(TABLE.LUFTDATEN).select('*').orderBy('created_at', 'desc').limit(limit);
     return res.json(fixTimeZone(result));
   });
@@ -246,6 +246,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
         {
           description: '',
           in: 'path',
+          minimum: 1,
           name: 'id',
           required: true,
           type: 'integer',
@@ -284,7 +285,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
           name: 'body',
           required: true,
           schema: {
-            $ref: '#/definitions/AllLuftdatenDefinitions',
+            $ref: '#/definitions/DevicePayload',
           },
         },
       ],

@@ -29,7 +29,7 @@ export const commitRoute = (config: ServerConfig, swaggerDocument: Spec) => {
         '200': {
           description: '',
           schema: {
-            type: 'string',
+            $ref: '#/definitions/Commit',
           },
         },
       },

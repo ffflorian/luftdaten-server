@@ -1,15 +1,14 @@
-import * as moment from 'moment';
+import {format, formatDistance} from 'date-fns';
 
 import {DevicePayload, SensorValue} from './DevicePayload';
 import {KnexResult, KnexUpdate} from './knex/KnexService';
 
 export function formatDate(): string {
-  return moment().format('YYYY-MM-DD HH:mm:ss');
+  return format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 }
 
 export function formatUptime(uptime: number): string {
-  const duration = moment.duration(uptime, 'seconds').asMilliseconds();
-  return moment.utc(duration).format('HH:mm:ss');
+  return formatDistance(0, uptime * 1000, {includeSeconds: true});
 }
 
 export function buildDataFromPayload(payload: DevicePayload): KnexUpdate {
@@ -64,11 +63,16 @@ export function getFloatOrNull(value: string): number | null {
   return result;
 }
 
-export function fixTimeZone<T extends keyof KnexResult>(
-  entries: Array<Pick<KnexResult, T | 'created_at'>>
-): Array<Pick<KnexResult, T | 'created_at'>> {
+export function fixTimeZone(entries: Array<Partial<KnexResult>>): Array<Partial<KnexResult>> {
   return entries.map(entry => {
-    entry.created_at = moment.utc(entry.created_at, 'YYYY-MM-DD HH:mm:ss').toLocaleString();
+    if (entry.created_at) {
+      const creationDate = new Date(`${entry.created_at} GMT`);
+      entry.created_at = format(creationDate, 'yyyy-MM-dd HH:mm:ss');
+    }
+    if (entry.updated_at) {
+      const updateDate = new Date(`${entry.updated_at} GMT`);
+      entry.updated_at = format(updateDate, 'yyyy-MM-dd HH:mm:ss');
+    }
     return entry;
   });
 }

@@ -1,5 +1,5 @@
 /**
- *  A sensor value, e.g.
+ * A sensor value, e.g.
  * `{ "value_type": "humidity", "value": "37.10" }`
  */
 export interface SensorValue {
