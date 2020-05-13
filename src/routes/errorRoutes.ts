@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as logdown from 'logdown';
+import * as HTTP_STATUS from 'http-status-codes';
 
 import {formatDate} from '../utils';
 
@@ -10,10 +11,10 @@ const logger = logdown('luftdaten-server/errorRoutes', {
   markdown: false,
 });
 
-export const internalErrorRoute = (): express.ErrorRequestHandler => (err, req, res, next) => {
+export const internalErrorRoute = (): express.ErrorRequestHandler => (err, _, res) => {
   logger.error(`[${formatDate()}] ${err.stack}`);
   const error = {
-    code: 500,
+    code: HTTP_STATUS.INTERNAL_SERVER_ERROR,
     message: 'Internal server error',
     stack: err.stack,
   };
@@ -21,9 +22,9 @@ export const internalErrorRoute = (): express.ErrorRequestHandler => (err, req, 
 };
 
 export const notFoundRoute = () =>
-  router.get('*', (req, res) => {
+  router.get('*', (_, res) => {
     const error = {
-      code: 404,
+      code: HTTP_STATUS.NOT_FOUND,
       message: 'Not found',
     };
     return res.status(error.code).json(error);

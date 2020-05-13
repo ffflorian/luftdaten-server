@@ -3,6 +3,7 @@ import * as fs from 'fs-extra';
 import * as logdown from 'logdown';
 import * as path from 'path';
 import {Spec} from 'swagger-schema-official';
+import * as HTTP_STATUS from 'http-status-codes';
 
 import {ServerConfig} from '../config';
 import {formatDate, formatUptime} from '../utils';
@@ -25,9 +26,9 @@ interface InfoData {
 export const mainRoute = (config: ServerConfig, swaggerDocument: Spec) => {
   const commitHashFile = path.join(config.DIST_DIR, 'commit');
 
-  router.get('/', async (req, res) => {
+  router.get('/', async (_, res) => {
     const infoData: InfoData = {
-      code: 200,
+      code: HTTP_STATUS.OK,
       message: `luftdaten-server v${config.VERSION} ready (Node.js ${nodeVersion})`,
       uptime: formatUptime(nodeUptime()),
     };
@@ -46,7 +47,7 @@ export const mainRoute = (config: ServerConfig, swaggerDocument: Spec) => {
     get: {
       produces: ['application/json'],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: '',
           schema: {
             $ref: '#/definitions/ServerInfo',

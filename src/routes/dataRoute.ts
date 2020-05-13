@@ -1,14 +1,16 @@
 import * as express from 'express';
 import * as Knex from 'knex';
-
 import {Spec} from 'swagger-schema-official';
+import * as HTTP_STATUS from 'http-status-codes';
+
 import {DevicePayload} from '../DevicePayload';
 import {KnexResult, KnexUpdate, TABLE} from '../knex/KnexService';
 import {buildDataFromPayload, fixTimeZone} from '../utils';
 
 const router = express.Router();
 
-const getLimit = (limitString?: string, maximum = 10000): number => {
+// eslint-disable-next-line no-magic-numbers
+const getLimit = (limitString?: string, maximum = 10_000): number => {
   const defaultLimit = 20;
 
   if (limitString) {
@@ -46,7 +48,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       ],
       produces: ['application/json'],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: '',
           schema: {
             items: {
@@ -89,7 +91,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       ],
       produces: ['application/json'],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: '',
           schema: {
             items: {
@@ -132,7 +134,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       ],
       produces: ['application/json'],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: '',
           schema: {
             items: {
@@ -175,7 +177,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       ],
       produces: ['application/json'],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: '',
           schema: {
             items: {
@@ -215,7 +217,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       ],
       produces: ['application/json'],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: '',
           schema: {
             items: {
@@ -237,7 +239,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       return res.json(fixTimeZone(result)[0]);
     }
 
-    return res.sendStatus(404);
+    return res.sendStatus(HTTP_STATUS.NOT_FOUND);
   });
 
   swaggerDocument.paths['/data/{id}'] = {
@@ -254,7 +256,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
       ],
       produces: ['application/json'],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: '',
           schema: {
             $ref: '#/definitions/AllLuftdatenDefinitions',
@@ -272,7 +274,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
 
     await knexInstance(TABLE.LUFTDATEN).insert(data);
 
-    return res.sendStatus(200);
+    return res.sendStatus(HTTP_STATUS.OK);
   });
 
   swaggerDocument.paths['/data'] = {
@@ -290,7 +292,7 @@ export const dataRoute = (knexInstance: Knex<KnexResult, KnexUpdate>, swaggerDoc
         },
       ],
       responses: {
-        '200': {
+        [HTTP_STATUS.OK]: {
           description: 'Data is ok',
         },
       },

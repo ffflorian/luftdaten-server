@@ -5,6 +5,7 @@ import * as http from 'http';
 import * as path from 'path';
 import {Spec} from 'swagger-schema-official';
 import * as swaggerUi from 'swagger-ui-express';
+import * as HTTP_STATUS from 'http-status-codes';
 
 import {ServerConfig, defaultConfig} from './config';
 import {KnexService} from './knex/KnexService';
@@ -41,12 +42,12 @@ export class Server {
     this.app.use((req, res, next) => {
       bodyParser.json({limit: '200mb'})(req, res, error => {
         if (error) {
-          return res.status(400).json({error: 'Payload is not valid JSON data.'});
+          return res.status(HTTP_STATUS.BAD_REQUEST).json({error: 'Payload is not valid JSON data.'});
         }
         return next();
       });
     });
-    this.app.use((req, res, next) => {
+    this.app.use((_, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
       next();
@@ -71,11 +72,11 @@ export class Server {
       () =>
         new Promise((resolve, reject) => {
           if (this.server) {
-            reject('Server is already running.');
+            reject(new Error('Server is already running.'));
           } else if (this.config.PORT_HTTP) {
             this.server = this.app.listen(this.config.PORT_HTTP, () => resolve(this.config.PORT_HTTP));
           } else {
-            reject('Server port not specified.');
+            reject(new Error('Server port not specified.'));
           }
         })
     );
@@ -221,14 +222,6 @@ export class Server {
         },
         type: 'object',
       },
-      Samples: {
-        properties: {
-          samples: {
-            type: 'integer',
-          },
-        },
-        type: 'object',
-      },
       SDS_P1: {
         properties: {
           SDS_P1: {
@@ -243,6 +236,14 @@ export class Server {
           SDS_P2: {
             format: 'float',
             type: 'number',
+          },
+        },
+        type: 'object',
+      },
+      Samples: {
+        properties: {
+          samples: {
+            type: 'integer',
           },
         },
         type: 'object',

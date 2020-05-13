@@ -8,20 +8,21 @@ export function formatDate(): string {
 }
 
 export function formatUptime(uptime: number): string {
-  return formatDistance(0, uptime * 1000, {includeSeconds: true});
+  const ONE_SECOND = 1000;
+  return formatDistance(0, uptime * ONE_SECOND, {includeSeconds: true});
 }
 
 export function buildDataFromPayload(payload: DevicePayload): KnexUpdate {
   const sensorValues = buildValuesFromSensor(payload.sensordatavalues);
 
   const data: KnexUpdate = {
+    SDS_P1: getFloatOrNull(sensorValues.SDS_P1),
+    SDS_P2: getFloatOrNull(sensorValues.SDS_P2),
     esp8266id: payload.esp8266id,
     humidity: getFloatOrNull(sensorValues.humidity),
     max_micro: getIntOrNull(sensorValues.max_micro),
     min_micro: getIntOrNull(sensorValues.min_micro),
     samples: getIntOrNull(sensorValues.samples),
-    SDS_P1: getFloatOrNull(sensorValues.SDS_P1),
-    SDS_P2: getFloatOrNull(sensorValues.SDS_P2),
     signal: getIntOrNull(sensorValues.signal),
     software_version: payload.software_version,
     temperature: getFloatOrNull(sensorValues.temperature),
@@ -63,7 +64,7 @@ export function getFloatOrNull(value: string): number | null {
   return result;
 }
 
-export function fixTimeZone(entries: Array<Partial<KnexResult>>): Array<Partial<KnexResult>> {
+export function fixTimeZone(entries: Partial<KnexResult>[]): Partial<KnexResult>[] {
   return entries.map(entry => {
     if (entry.created_at) {
       const creationDate = new Date(`${entry.created_at} GMT`);
