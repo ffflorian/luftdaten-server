@@ -64,7 +64,7 @@ export function getFloatOrNull(value: string): number | null {
   return result;
 }
 
-export function fixTimeZone(entries: Partial<KnexResult>[]): Partial<KnexResult>[] {
+export function fixTimeZone(entries: Array<Partial<KnexResult>>): Array<Partial<KnexResult>> {
   return entries.map(entry => {
     if (entry.created_at) {
       const creationDate = new Date(`${entry.created_at} GMT`);
