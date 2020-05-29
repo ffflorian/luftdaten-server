@@ -40,7 +40,7 @@
     "eslint-plugin-sort-keys-fix": "1.1.1",
     "eslint-plugin-typescript-sort-keys": "1.2.0",
     "husky": "4.2.5",
-    "lint-staged": "10.2.6",
+    "lint-staged": "10.2.7",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "swagger-markdown": "1.2.0",
