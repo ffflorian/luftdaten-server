@@ -192,12 +192,6 @@ The sensor ID
 | ---- | ---- | ----------- | -------- |
 | min_micro | integer |  | No |
 
-#### Samples
-
-| Name | Type | Description | Required |
-| ---- | ---- | ----------- | -------- |
-| samples | integer |  | No |
-
 #### SDS_P1
 
 | Name | Type | Description | Required |
@@ -209,6 +203,12 @@ The sensor ID
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | SDS_P2 | float |  | No |
+
+#### Samples
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| samples | integer |  | No |
 
 #### SensorValue
 
