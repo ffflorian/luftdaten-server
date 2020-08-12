@@ -2,3 +2,4 @@ dist
 node_modules
 package.json
 docs/swagger.md
+CHANGELOG.md
