@@ -5,7 +5,7 @@ import * as http from 'http';
 import * as path from 'path';
 import {Spec} from 'swagger-schema-official';
 import * as swaggerUi from 'swagger-ui-express';
-import * as HTTP_STATUS from 'http-status-codes';
+import {StatusCodes as HTTP_STATUS} from 'http-status-codes';
 
 import {ServerConfig, defaultConfig} from './config';
 import {KnexService} from './knex/KnexService';

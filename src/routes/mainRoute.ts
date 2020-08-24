@@ -3,7 +3,7 @@ import * as fs from 'fs-extra';
 import * as logdown from 'logdown';
 import * as path from 'path';
 import {Spec} from 'swagger-schema-official';
-import * as HTTP_STATUS from 'http-status-codes';
+import {StatusCodes as HTTP_STATUS} from 'http-status-codes';
 
 import {ServerConfig} from '../config';
 import {formatDate, formatUptime} from '../utils';
