@@ -1,4 +1,4 @@
-# luftdaten-server [![Build Status](https://github.com/ffflorian/luftdaten-server/workflows/Build/badge.svg)](https://github.com/ffflorian/luftdaten-server/actions/) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=ffflorian/luftdaten-server)](https://dependabot.com)
+# luftdaten-server [![Build Status](https://github.com/ffflorian/luftdaten-server/workflows/Build/badge.svg)](https://github.com/ffflorian/luftdaten-server/actions/)
 
 Receive and serve data from your [luftdaten](https://luftdaten.info) device.
 
