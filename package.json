@@ -75,7 +75,7 @@
   "main": "dist/index.js",
   "name": "luftdaten-server",
   "prettier": "@ffflorian/prettier-config",
-  "repository": "https://github.com/ffflorian/lufdaten-server.git",
+  "repository": "https://github.com/ffflorian/luftdaten-server.git",
   "scripts": {
     "build": "yarn build:node && yarn build:docs",
     "build:commit": "git rev-parse HEAD > dist/commit",
