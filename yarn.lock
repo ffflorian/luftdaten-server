@@ -5061,10 +5061,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-swagger-markdown@1.4.2:
-  version "1.4.2"
-  resolved "https://registry.npmjs.org/swagger-markdown/-/swagger-markdown-1.4.2.tgz#8ea0b5b6f7e7bce50cc74c3246c82c85049922c7"
-  integrity sha512-DXj9FkJg5noeriqdAKU4RCNkb2lU+lE+oRQoo2TjYCtWrOGMdccez3GKcLBmzdnP0oi+EDv+Gc0hjeYGG5vlzQ==
+swagger-markdown@1.4.3:
+  version "1.4.3"
+  resolved "https://registry.npmjs.org/swagger-markdown/-/swagger-markdown-1.4.3.tgz#b54bde81d293191f88fc7657c66ad2fc196c72b8"
+  integrity sha512-9qRThk6dyBNOucjetFLYvjzYIR7R/8fSJVCJOVkyTGqhCE0TXMvuZbFRzer6OEZrnSzA6N73wucRiUfRmsNxiQ==
   dependencies:
     argparse "^1.0.10"
     markdownlint "^0.20.4"
