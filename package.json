@@ -7,7 +7,7 @@
     "date-fns": "2.16.1",
     "dotenv": "8.2.0",
     "express": "4.17.1",
-    "fs-extra": "9.0.1",
+    "fs-extra": "9.1.0",
     "http-status-codes": "2.1.4",
     "knex": "0.21.16",
     "logdown": "3.3.1",
