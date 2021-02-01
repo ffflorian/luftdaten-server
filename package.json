@@ -11,7 +11,7 @@
     "http-status-codes": "2.1.4",
     "knex": "0.21.16",
     "logdown": "3.3.1",
-    "pm2": "4.5.1",
+    "pm2": "4.5.4",
     "sqlite3": "5.0.1",
     "swagger-ui-express": "4.1.6"
   },
