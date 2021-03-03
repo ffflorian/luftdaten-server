@@ -9,7 +9,7 @@
     "express": "4.17.1",
     "fs-extra": "9.1.0",
     "http-status-codes": "2.1.4",
-    "knex": "0.21.18",
+    "knex": "0.21.19",
     "logdown": "3.3.1",
     "pm2": "4.5.5",
     "sqlite3": "5.0.2",
