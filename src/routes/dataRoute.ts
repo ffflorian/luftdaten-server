@@ -1,9 +1,9 @@
 import * as express from 'express';
-import * as Knex from 'knex';
-import {Spec} from 'swagger-schema-official';
+import type {Knex} from 'knex';
+import type {Spec} from 'swagger-schema-official';
 import {StatusCodes as HTTP_STATUS} from 'http-status-codes';
 
-import {DevicePayload} from '../DevicePayload';
+import type {DevicePayload} from '../DevicePayload';
 import {KnexResult, KnexUpdate, TABLE} from '../knex/KnexService';
 import {buildDataFromPayload, fixTimeZone} from '../utils';
 
