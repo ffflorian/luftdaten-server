@@ -1,7 +1,7 @@
 import {format, formatDistance} from 'date-fns';
 
-import {DevicePayload, SensorValue} from './DevicePayload';
-import {KnexResult, KnexUpdate} from './knex/KnexService';
+import type {DevicePayload, SensorValue} from './DevicePayload';
+import type {KnexResult, KnexUpdate} from './knex/KnexService';
 
 export function formatDate(): string {
   return format(new Date(), 'yyyy-MM-dd HH:mm:ss');

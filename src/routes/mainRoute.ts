@@ -2,10 +2,10 @@ import * as express from 'express';
 import * as fs from 'fs-extra';
 import * as logdown from 'logdown';
 import * as path from 'path';
-import {Spec} from 'swagger-schema-official';
+import type {Spec} from 'swagger-schema-official';
 import {StatusCodes as HTTP_STATUS} from 'http-status-codes';
 
-import {ServerConfig} from '../config';
+import type {ServerConfig} from '../config';
 import {formatDate, formatUptime} from '../utils';
 
 const logger = logdown('luftdaten-server/mainRoute', {

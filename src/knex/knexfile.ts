@@ -1,4 +1,4 @@
-import * as Knex from 'knex';
+import type {Knex} from 'knex';
 
 export const knexConfig: Knex.Config = {
   client: 'sqlite3',

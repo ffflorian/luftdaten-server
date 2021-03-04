@@ -1,4 +1,4 @@
-import * as Knex from 'knex';
+import {Knex, knex} from 'knex';
 import {knexConfig} from './knexfile';
 
 export enum TABLE {
@@ -35,7 +35,7 @@ export class KnexService {
   constructor(options: KnexServiceOptions = {}) {
     knexConfig.debug = options.development === true;
 
-    this.knex = Knex(knexConfig);
+    this.knex = knex(knexConfig);
   }
 
   public async init(): Promise<Knex<KnexResult, KnexUpdate>> {
