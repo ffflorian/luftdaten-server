@@ -2593,10 +2593,10 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-knex@0.95.0:
-  version "0.95.0"
-  resolved "https://registry.npmjs.org/knex/-/knex-0.95.0.tgz#33fecd97f42b55e4f82af34c09e832ffb84ca4d8"
-  integrity sha512-JQi9D6mzu6k9zj6CMipNqc84gMzgEDpdQ9OW3gpN9Fx9kzogtsYSZJOGA6Y+9DqxODnAPtM0mJhX1x3eEBxIhg==
+knex@0.95.1:
+  version "0.95.1"
+  resolved "https://registry.npmjs.org/knex/-/knex-0.95.1.tgz#6a99dfebe992829b417144c68d1532ee2b47e90e"
+  integrity sha512-8vAmH4M6ks0qXHqaIacUOTtGAVc1PPFuF8W/W9bzuUHcQur4809mtufw1LY6n/tNRTLwMFBSXWkUnfFQFqFvNQ==
   dependencies:
     colorette "1.2.1"
     commander "^7.1.0"
@@ -2605,7 +2605,7 @@ knex@0.95.0:
     esm "^3.2.25"
     getopts "2.2.5"
     interpret "^2.2.0"
-    lodash "^4.17.20"
+    lodash "^4.17.21"
     pg-connection-string "2.4.0"
     rechoir "^0.7.0"
     resolve-from "^5.0.0"
@@ -2723,10 +2723,10 @@ lodash.isequal@^4.5.0:
   resolved "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
-lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.20:
-  version "4.17.20"
-  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
-  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log-driver@^1.2.7:
   version "1.2.7"
