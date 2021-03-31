@@ -17,7 +17,7 @@
   },
   "description": "Receive and serve data from your luftdaten device",
   "devDependencies": {
-    "@ffflorian/eslint-config": "0.6.2",
+    "@ffflorian/eslint-config": "0.7.0",
     "@ffflorian/prettier-config": "0.1.2",
     "@types/body-parser": "1.19.0",
     "@types/compression": "1.7.0",
