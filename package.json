@@ -1,7 +1,7 @@
 {
   "author": "Florian Imdahl <git@ffflorian.de>",
   "dependencies": {
-    "@types/swagger-schema-official": "2.0.21",
+    "@types/swagger-schema-official": "2.0.22",
     "body-parser": "1.19.0",
     "compression": "1.7.4",
     "date-fns": "2.22.1",
