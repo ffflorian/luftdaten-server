@@ -2681,10 +2681,10 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-knex@0.95.8:
-  version "0.95.8"
-  resolved "https://registry.npmjs.org/knex/-/knex-0.95.8.tgz#aa464d0870eefc11f6dc8d017bd2b2c30748fdc2"
-  integrity sha512-fEeu8SWyJuW1NHLjnMA2ACEAsVuGuFxtNO5J8bcQdlybnkiNSWPXYX0LhKB17sgWl5UARJrsNpjVeT55ByP8gA==
+knex@0.95.9:
+  version "0.95.9"
+  resolved "https://registry.npmjs.org/knex/-/knex-0.95.9.tgz#d72acbdbc7aa199a829cca3c53371b80e521adfe"
+  integrity sha512-iy8Wue3ofGBVZENgz32fx2uYSYhXCQEE7lemMIdm/FDtgwwmrzkYm9BdGZ4wb8Fg/oCgezMGWSdCflWicX4sdA==
   dependencies:
     colorette "1.2.1"
     commander "^7.1.0"
