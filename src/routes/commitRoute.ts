@@ -19,7 +19,9 @@ export const commitRoute = (config: ServerConfig, swaggerDocument: Spec) => {
       if (config.DEVELOPMENT) {
         return res.contentType('text/plain; charset=UTF-8').send('DEVELOPMENT');
       }
-      return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({error: error.message, stack: error.stack});
+      return res
+        .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+        .json({error: (error as Error).message, stack: (error as Error).stack});
     }
   });
 

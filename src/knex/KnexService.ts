@@ -43,7 +43,7 @@ export class KnexService {
       await this.knex.migrate.latest();
       return this.knex;
     } catch (error) {
-      throw new Error(`Error while migrating: ${error.message}`);
+      throw new Error(`Error while migrating: ${(error as Error).message}`);
     }
   }
 }
