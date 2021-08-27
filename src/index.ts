@@ -39,7 +39,7 @@ process.on('SIGTERM', async () => {
 });
 
 process.on('uncaughtException', error => {
-  console.error(`[${formatDate()}] Uncaught exception: ${error.message}`, error);
+  console.error(`[${formatDate()}] Uncaught exception: ${(error as Error).message}`, error);
 });
 process.on('unhandledRejection', (reason, promise) => {
   console.error(`[${formatDate()}] Unhandled rejection at:`, promise, 'reason:', reason);
