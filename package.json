@@ -6,7 +6,7 @@
     "compression": "1.7.4",
     "date-fns": "2.28.0",
     "dotenv": "14.3.2",
-    "express": "4.17.2",
+    "express": "4.17.3",
     "fs-extra": "10.0.0",
     "http-status-codes": "2.2.0",
     "knex": "0.95.15",
